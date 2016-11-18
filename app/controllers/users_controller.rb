@@ -1,10 +1,23 @@
 class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   
+ 
+  def followings
+    @user  = User.find(params[:id])
+    @users = @user.following_users
+    @title = "Followings"
+  end
   
-  def show # 追加
-   @user = User.find(params[:id])
-   @microposts = @user.microposts.order(created_at: :desc)
+  def followers
+    @user  = User.find(params[:id])
+    @users = @user.follower_users
+    @title = "Followers"
+  end
+  
+  
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
   end
   
   def new
